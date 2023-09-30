@@ -3,16 +3,23 @@
     height: 35px;
     margin-top: 2px;
     margin-left: 5px;
+    cursor: pointer;
 }
 
 .navbar-brand{
    color: orange;
 }
 
+
+
 .btn-nav{
     background-color: orange;
     border-radius: 10px;
     color: white !important;
     font-weight: bold;
+}
+
+.btn-nav:hover{
+    background-color: red;
 }
 

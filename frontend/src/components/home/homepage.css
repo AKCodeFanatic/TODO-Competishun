@@ -1,0 +1,39 @@
+.content{
+    text-align: center;
+    margin-top: 100px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.content h1{
+    font-size: 3.5rem;
+    color: red;
+    margin-bottom: 70px;
+}
+
+.content p{
+    font-size: 1.5rem;
+    color: orangered;
+}
+
+.home-btn{
+
+    margin-top: 20px;
+    background-color: orange;
+    border-radius: 5px;
+    color: white !important;
+    font-weight: bold;
+    padding: 8px;
+    border-width: 0;
+}
+
+.home-btn:hover{
+    
+    background-color: red;
+}
+
+.home-btn-div{
+    margin-left: 69px;
+    text-align: center;
+}
