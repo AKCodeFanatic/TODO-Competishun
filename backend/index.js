@@ -9,7 +9,7 @@ require('./connection/connection')
 
 
 const corsOptions ={
-    origin:'todo-competishun-bf7o43gq0-akcodefanatics-projects.vercel.app', 
+    origin:'https://todo-competishun-jbmx-frontend.vercel.app', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
