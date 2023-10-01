@@ -2,9 +2,20 @@ const express = require('express');
 const auth =  require("./routes/auth");
 const list =  require("./routes/list");
 const app = express();
-const PORT = 3000;
+const cors = require('cors');
+const PORT = 8000;
 
 require('./connection/connection')
+
+
+const corsOptions ={
+    origin:'todo-competishun-bf7o43gq0-akcodefanatics-projects.vercel.app', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
+app.use(cors(corsOptions));
+
+
 
 app.use(express.json());
 

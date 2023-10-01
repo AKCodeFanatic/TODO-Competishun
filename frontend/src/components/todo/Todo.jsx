@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react'
 import { AiOutlineDelete } from 'react-icons/ai'
 import { BsCheckLg } from 'react-icons/bs'
 import {GrDocumentUpdate} from 'react-icons/gr'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Update from './Update'
 
 
 
@@ -26,15 +29,22 @@ export const Todo = () => {
   
 
   const handleAddTodo = () => {
-    let newTodoItem = {
-      title: newTitle,
-      description: newDescription
+    if(newTitle || newDescription === ""){
+      toast.error("Title or Description should not be empty !")
+    } else{
+      let newTodoItem = {
+        title: newTitle,
+        description: newDescription
+      }
+  
+      let updatedTodoArr = [...allTodos];
+      updatedTodoArr.push(newTodoItem);
+      setTodos(updatedTodoArr);
+      toast.success("Your task is added !");
+      toast.error("Your Task is NOT Saved ! Please register first")
+      localStorage.setItem("todolist", JSON.stringify(updatedTodoArr));
     }
-
-    let updatedTodoArr = [...allTodos];
-    updatedTodoArr.push(newTodoItem);
-    setTodos(updatedTodoArr);
-    localStorage.setItem("todolist", JSON.stringify(updatedTodoArr));
+   
   };
 
   useEffect(() => {
@@ -90,10 +100,17 @@ export const Todo = () => {
     setCompletedTodos(reducedTodo);
   }
 
+  const dis = (value)=>{
+    document.getElementById("todo-update").style.display = value;
+  }
+
 
   return (
-    <div className="Starting">
+
+    <div>
+      <div className="starting">
       <h1>My TODOS</h1>
+      <ToastContainer />
       <div className="todo_section">
         <div className="todo_data">
 
@@ -143,7 +160,10 @@ export const Todo = () => {
                   />
                   </div>
                   <div>
-                  <GrDocumentUpdate className='update-icon' />
+                  <GrDocumentUpdate 
+                  onClick={()=> dis("block")}
+                  title="Update?"
+                  className='update-icon' />
                   </div>
                 </div>
               </div>
@@ -171,6 +191,17 @@ export const Todo = () => {
         </div>
       </div>
     </div>
+
+    <div className="todo-update" id='todo-update'>
+      <div className="container">
+      <Update display={dis} />
+      </div>
+    </div>
+
+    </div>
+    
+
+
 
 
   )

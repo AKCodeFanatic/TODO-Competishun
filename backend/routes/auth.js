@@ -13,12 +13,14 @@ router.post("/register" , async(req , res) =>{
 
         
         const user = new User({username , password : hashPassword});
-        await user.save().then(()=>{
-            res.status(200).json({user:user})
+        await user
+        .save()
+        .then(()=>{
+            res.status(200).json({message:"User registered successfully!"})
         })
         
     } catch (error) {
-        res.status(400).json({message : "Error in catch"});
+        res.status(200).json({message : "User Already Exists"});
     }
 });
 
@@ -28,19 +30,20 @@ router.post("/login" , async(req , res) =>{
     try {
         const user = await User.findOne({username : req.body.username})
         if(!user){
-            res.status(400).json({message : "Please Sign Up first!"})
+            res.status(200).json({message : "Please Sign Up first!"})
         }
+  
         console.log(JSON.stringify(user.password));
         const isPassword = bcrypt.compareSync(req.body.password , user.password);
-        if(!isPassword){
-            res.status(400).json({message: "Password incorrect"});
+        if(isPassword===""){
+            res.status(200).json({message: "Password should not be empty"});
         }
 
         const {password , ...others} = user._doc;
         res.status(200).json({others});
     } catch (error) {
         console.log(error);
-        res.status(400).json({message : "Catch error"});
+        res.status(200).json({message : "Catch error"});
     }
 });
 

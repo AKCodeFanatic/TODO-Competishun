@@ -2,8 +2,23 @@
 import React from 'react'
 import './navbar.css'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../store';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+    const history = useNavigate();
+    const dispatch = useDispatch();
+    const isLoggedIn = useSelector((state) => state.isLoggedIn);
+    console.log(isLoggedIn);
+
+    const logout = ()=>{
+        sessionStorage.clear("id");
+        dispatch(authActions.logout());
+        history("/login");
+
+    }
   return (
     <div>        <div><nav className="navbar navbar-expand-lg bg-body-tertiary">
     <div className="container">
@@ -19,11 +34,11 @@ const Navbar = () => {
 
                 <li className="nav-item">
                     <Link className="nav-link active" aria-current="page" to="/todo">TODO</Link>
-
-                    
                 </li>
 
-                <li className="nav-item">
+
+                {!isLoggedIn && <>
+                    <li className="nav-item">
                     <Link className="nav-link active btn-nav mx-2" aria-current="page" to="/register">Register</Link>
                 </li>
 
@@ -31,9 +46,20 @@ const Navbar = () => {
                     <Link className="nav-link active btn-nav mx-2" aria-current="page" to="/login">LogIn</Link>
                 </li>
 
-                <li className="nav-item">
-                    <Link className="nav-link active btn-nav mx-2" aria-current="page" to="#">Log Out</Link>
-                </li>
+                </>}
+
+                {isLoggedIn && <>
+                    <li className="nav-item">
+                    <Link className="nav-link active btn-nav mx-2" aria-current="page" to="#"
+                    onClick={logout}>
+                    Log Out
+                    </Link>
+                </li>   
+                </>}
+
+
+
+               
 
                 {/* <li className="nav-item">
                     <img className="image-fluid userImg"src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png" alt="" />
